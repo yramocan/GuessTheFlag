@@ -29,17 +29,14 @@ struct ContentView: View {
                         .foregroundColor(.white)
                         .font(.largeTitle)
                         .fontWeight(.black)
+                        .frame(maxWidth: .infinity)
                 }
 
                 ForEach(0 ..< 3) { number in
                     Button(action: {
                         self.flagTapped(number)
                     }) {
-                        Image(self.countries[number])
-                            .renderingMode(.original)
-                            .clipShape(Capsule())
-                            .overlay(Capsule().stroke(Color.black, lineWidth: 1))
-                            .shadow(color: .black, radius: 2)
+                        FlagImage(countryName: self.countries[number])
                     }
                 }
 
@@ -76,6 +73,18 @@ struct ContentView: View {
             scoreTitle = "Wrong, that's \(countries[number])!"
             showingScore = true
         }
+    }
+}
+
+struct FlagImage: View {
+    var countryName: String
+
+    var body: some View {
+        Image(countryName)
+            .renderingMode(.original)
+            .clipShape(Capsule())
+            .overlay(Capsule().stroke(Color.black, lineWidth: 1))
+            .shadow(color: .black, radius: 2)
     }
 }
 
